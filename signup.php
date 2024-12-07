@@ -4,7 +4,7 @@ $password = '';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($_POST['reset'])) {
-        // Reset button clears input fields
+        // Reset button
         $username = '';
         $password = '';
     } else {

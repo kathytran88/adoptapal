@@ -17,7 +17,7 @@ $username = isset($_SESSION["username"]) ? htmlspecialchars($_SESSION["username"
 .w3-sidebar a {font-family: "Roboto", sans-serif}
 body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
 
-/* Styles for the welcome message */
+/* Welcome message */
 .welcome-message-container {
     text-align: center;
     background-color: #f0f0f0;
@@ -33,7 +33,7 @@ body,h1,h2,h3,h4,h5,h6,.w3-wide {font-family: "Montserrat", sans-serif;}
     margin: 0;
 }
 
-/* Responsive Design Adjustments */
+/* Responsive */
 @media (max-width: 768px) {
     .welcome-message-container h2 {
         font-size: 1.5rem;
