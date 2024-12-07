@@ -1,43 +1,47 @@
-<?php
-session_start();
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Log In - Adopt a Pal</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="signup-container">
+        <header class="signup-header">
+            <h1>Adopt a Pal</h1>
+            <p>Please fill out your information to log in</p>
+        </header>
 
-$filename = 'users.txt';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
-    $password = trim($_POST['password']);
-
-    if (!empty($username) && !empty($password)) {
-        if (file_exists($filename)) {
-            $users = file($filename, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-            $found = false;
-
-            foreach ($users as $user) {
-                list($storedUsername, $storedPasswordHash) = explode(":", $user);
-                if ($storedUsername === $username && password_verify($password, $storedPasswordHash)) {
-                    $found = true;
-                    break;
-                }
+        <main>
+            <?php
+            session_start();
+            if (isset($_SESSION['login_error'])) {
+                echo "<p class='error-message'>" . htmlspecialchars($_SESSION['login_error']) . "</p>";
+                unset($_SESSION['login_error']);
             }
+            ?>
+            <form action="login_handler.php" method="post" class="signup-form">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit">Log In</button>
+                    <button type="reset" class="reset-btn">Reset</button>
+                </div>
+            </form>
+        </main>
 
-            if ($found) {
-                header('Location: index.html');
-                exit();
-            } else {
-                $_SESSION['login_error'] = "Invalid username or password.";
-                header('Location: login.html');
-                exit();
-            }
-        } else {
-            $_SESSION['login_error'] = "No accounts found. Please sign up.";
-            header('Location: login.html');
-            exit();
-        }
-    } else {
-        $_SESSION['login_error'] = "Both fields are required.";
-        header('Location: login.html');
-        exit();
-    }
-}
-?>
+        <footer class="signup-footer">
+            <p>Don't have an account? <a href="signup.php">Sign up</a> now!</p>
+        </footer>
+    </div>
+</body>
+</html>
+
 
